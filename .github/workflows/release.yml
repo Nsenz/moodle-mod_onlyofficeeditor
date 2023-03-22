@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Get Info
         run: |
           echo "::set-output name=version::$(grep -Eo '[0-9]+(\.[0-9]+)+' CHANGELOG.md)"
@@ -17,7 +20,7 @@ jobs:
       - name: Generate Changelog
         run: |
           awk '/## [0-9]/{p++} p; /## [0-9]/{if (p > 1) exit}' CHANGELOG.md | awk 'NR>2 {print last} {last=$0}' > RELEASE.md
-      - name: Build Artifact
+      - name: Prepare Plugin
         run: |
           cd ${{ github.workspace }}
           git submodule update --init --recursive
@@ -26,8 +29,23 @@ jobs:
           cd ./moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
           rm -rf ./.github/
           rm -rf ./.git/
+      - name: Checkout Moodle
+        uses: actions/checkout@v3
+        with:
+          repository: moodle/moodle
+          path: ./moodle
+      - name: Copy Plugin
+        run: |
+          cp -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
+      - name: Build Plugin
+        run: |
+          cd ./moodle
+          npm install
+          grunt
       - name: Zip Artifact
-        run: zip -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
+        run: |
+          cd ${{ github.workspace }}
+          zip -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release

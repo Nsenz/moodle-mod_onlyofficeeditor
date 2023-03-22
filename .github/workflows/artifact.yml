@@ -2,7 +2,6 @@ name: Artifact
 
 on:
   workflow_dispatch:
-  push:
   pull_request:
     types: [opened, reopened]
     branches: [main, master]
@@ -12,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Plugin
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -30,7 +29,7 @@ jobs:
           rm -rf ./.github/
           rm -rf ./.git/
       - name: Checkout Moodle
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: moodle/moodle
           path: ./moodle
