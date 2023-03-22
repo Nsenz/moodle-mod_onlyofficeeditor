@@ -46,7 +46,7 @@ jobs:
       - name: Zip Artifact
         run: |
           cd ${{ github.workspace }}
-          zip -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
+          zip -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release
