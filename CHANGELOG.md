@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.0.4
+## 3.0.5
 ## Changed
 - redesign to moodle 4.*
 

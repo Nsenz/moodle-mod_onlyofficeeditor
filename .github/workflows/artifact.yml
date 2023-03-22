@@ -2,6 +2,7 @@ name: Artifact
 
 on:
   workflow_dispatch:
+  push:
   pull_request:
     types: [opened, reopened]
     branches: [main, master]
@@ -47,7 +48,7 @@ jobs:
           mkdir -p ./deploy
           cp -r ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./deploy
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
           path: deploy
