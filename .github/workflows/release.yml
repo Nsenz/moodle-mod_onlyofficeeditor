@@ -45,8 +45,8 @@ jobs:
           grunt
       - name: Zip Artifact
         run: |
-          cd ${{ github.workspace }}
-          zip -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
+          cd moodle/mod/
+          zip moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}/
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release
@@ -64,6 +64,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip
+          asset_path: moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip
           asset_name: moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}.zip
           asset_content_type: application/zip
