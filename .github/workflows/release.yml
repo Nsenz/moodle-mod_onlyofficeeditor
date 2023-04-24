@@ -39,7 +39,7 @@ jobs:
       - name: Copy Plugin
         run: |
           cd ${{ github.workspace }}
-          cp -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
+          cp -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./moodle/mod/
       - name: Build Plugin
         run: |
           cd ./moodle
