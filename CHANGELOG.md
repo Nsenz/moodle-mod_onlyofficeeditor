@@ -1,6 +1,6 @@
 # Change Log
 
-## 4.1.1
+## 4.1.2
 ## Added
 - support Moodle AssignSubmission ONLYOFFICE Integration plugin
 - the ability to change the JWT header
