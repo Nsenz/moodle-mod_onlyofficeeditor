@@ -37,7 +37,7 @@ jobs:
           path: ./moodle
       - name: Copy Plugin
         run: |
-          cp -r moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
+          cp -r ./moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }} ./moodle/mod/moodle-mod_onlyofficeeditor-${{ steps.info.outputs.version }}
       - name: Build Plugin
         run: |
           cd ./moodle
